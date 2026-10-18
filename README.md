@@ -67,6 +67,12 @@ Works out of the box with both:
 Configuration and skills resolve automatically to `~/.gemini/` on Unix-like systems and `%USERPROFILE%\.gemini\` on Windows.
 
 ---
+Screenshots
+![images](https://i.imgur.com/5krHJk7.png)
+![images](https://i.imgur.com/4f9dn1J.png)
+![images](https://i.imgur.com/Cm2vXd6.png)
+
+---
 
 ## How Claugravity handles plugins
 
