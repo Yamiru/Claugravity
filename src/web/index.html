@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Claugravity</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Mobile Hamburger Header -->
+    <div class="mobile-nav-bar">
+      <div class="brand">
+        <div class="brand-icon">CG</div>
+        <div class="brand-text">
+          <h1>Claugravity <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase;">beta 0.1</span></h1>
+          <span>Claude & Antigravity Bridge</span>
+        </div>
+      </div>
+      <button class="mobile-toggle" id="btn-mobile-menu" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand desktop-brand">
+        <div class="brand-icon">CG</div>
+        <div class="brand-text">
+          <h1>Claugravity <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase;">beta 0.1</span></h1>
+          <span>Claude & Antigravity Bridge</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-section-title">🧠 Skills & Rules</div>
+        <button class="nav-item active" data-tab="antigravity-skills">
+          <span class="icon">✨</span>
+          <span>Skills & Rules</span>
+          <span class="badge" id="count-agy-skills">28</span>
+        </button>
+        <button class="nav-item" data-tab="rules">
+          <span class="icon">📜</span>
+          <span>System Directives</span>
+          <span class="badge" id="count-rules">0</span>
+        </button>
+        <button class="nav-item" data-tab="skills-check">
+          <span class="icon">🛡️</span>
+          <span>Health & Collisions</span>
+          <span class="badge" id="count-skills">0</span>
+        </button>
+
+        <div class="nav-section-title">📦 Plugins & Store</div>
+        <button class="nav-item" data-tab="installed">
+          <span class="icon">🔌</span>
+          <span>Plugins</span>
+          <span class="badge" id="count-installed">0</span>
+        </button>
+        <button class="nav-item" data-tab="marketplace">
+          <span class="icon">🛒</span>
+          <span>Claude Store</span>
+          <span class="badge" id="count-available">0</span>
+        </button>
+        <button class="nav-item" data-tab="marketplaces">
+          <span class="icon">🌐</span>
+          <span>Marketplaces</span>
+          <span class="badge" id="count-markets">0</span>
+        </button>
+
+        <div class="nav-section-title">🤖 Agents & MCP</div>
+        <button class="nav-item" data-tab="agents">
+          <span class="icon">🤖</span>
+          <span>Agents</span>
+          <span class="badge" id="count-agents">0</span>
+        </button>
+        <button class="nav-item" data-tab="mcp">
+          <span class="icon">⚡</span>
+          <span>MCP Servers</span>
+          <span class="badge" id="count-mcp">0</span>
+        </button>
+
+        <div class="nav-section-title">⚡ Updates & Tools</div>
+        <button class="nav-item" data-tab="updates">
+          <span class="icon">🔄</span>
+          <span>Updates & Sync</span>
+          <span class="badge alert" id="count-updates" style="display: none;">0</span>
+        </button>
+        <button class="nav-item" data-tab="convert">
+          <span class="icon">🛠️</span>
+          <span>Import & Convert</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-indicator">
+          <span class="dot"></span>
+          <span>Antigravity Connected</span>
+        </div>
+        <div class="version" id="sidebar-version-label">Claugravity v0.1 (Beta) • MIT License</div>
+        <div style="font-size: 11px; margin-top: 4px; color: var(--text-dim);">
+          by <a href="https://yamiru.com" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: none; font-weight: 600;">Yamiru.com</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-search">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search" placeholder="Search skills, rules, plugins, MCP, agents...">
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-secondary" id="btn-refresh" title="Refresh all data">
+            <span class="icon">🔄</span> <span class="btn-text">Refresh</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-check-updates" title="Check updates from upstream Git repositories">
+            <span class="icon">⚡</span> <span class="btn-text">Check Updates</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-app-version" title="Check Claugravity app version from .version and GitHub">
+            <span class="icon">🏷️</span> <span id="app-version-text">v0.1 (Beta)</span>
+          </button>
+          <button class="btn btn-primary" id="btn-about" title="About Claugravity">
+            <span class="icon">ℹ️</span> <span class="btn-text">About</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Tab: Antigravity Skills Hub -->
+      <section id="tab-antigravity-skills" class="tab-pane active">
+        <div class="section-banner" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.08));">
+          <div>
+            <h2>🧠 Antigravity Skills Catalog & Library</h2>
+            <p>All active skills registered in your Antigravity environment – Google DeepMind core skills, Superpowers engineering workflows, writing style guides, and marketplace imports.</p>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-secondary" id="btn-check-skills-updates">
+              🔄 Check Skill Updates
+            </button>
+            <button class="btn btn-primary" id="btn-open-create-skill">
+              ➕ New Custom Skill
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter chips for Antigravity skills -->
+        <div class="filter-chips-row" id="agy-skills-filter-chips">
+          <button class="chip active" data-agy-filter="all">All Skills (<span id="chip-count-all">28</span>)</button>
+          <button class="chip" data-agy-filter="builtin">🏛️ Original Antigravity Built-in (<span id="chip-count-builtin">8</span>)</button>
+          <button class="chip" data-agy-filter="standalone">🧩 Installed: Standalone Custom (<span id="chip-count-standalone">18</span>)</button>
+          <button class="chip" data-agy-filter="plugin">🔌 Installed: Marketplace Plugins (<span id="chip-count-plugin">2</span>)</button>
+        </div>
+
+        <div class="cards-grid" id="agy-skills-grid">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading Antigravity skills library...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Marketplace -->
+      <section id="tab-marketplace" class="tab-pane">
+        <div class="section-banner">
+          <div>
+            <h2>Claude & Agent Marketplace for Antigravity</h2>
+            <p>Browse tested community plugins and skills. The bridge automatically adapts and converts them into the native Antigravity architecture.</p>
+          </div>
+          <div class="filter-chips" id="filter-chips-container">
+            <button class="chip active" data-filter="all">All Available</button>
+            <button class="chip" data-filter="superpowers">Superpowers</button>
+            <button class="chip" data-filter="karpathy">Karpathy</button>
+            <button class="chip" data-filter="official">Official Claude</button>
+            <button class="chip" data-filter="skill">Skills</button>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="plugins-grid">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading marketplace catalog...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Installed -->
+      <section id="tab-installed" class="tab-pane">
+        <div class="pane-header">
+          <div>
+            <h2>Installed Packages in Antigravity</h2>
+            <p>Active plugins inside <code>~/.gemini/config/plugins</code> cleanly registered without duplication.</p>
+          </div>
+        </div>
+
+        <div class="installed-list" id="installed-container">
+          <p class="empty-state">No packages installed yet.</p>
+        </div>
+      </section>
+
+      <!-- Tab: Updates -->
+      <section id="tab-updates" class="tab-pane">
+        <div class="pane-header">
+          <div>
+            <h2>Updates & Upstream Synchronization</h2>
+            <p>Real-time Git comparison of installed plugins and Antigravity skills against upstream GitHub tags and commits.</p>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button class="btn btn-secondary" id="btn-reset-cache" title="Wipe server marketplace cache, clear browser storage/caches, and reload">
+              <span class="icon">🧹</span> <span class="btn-text">Reset Cache</span>
+            </button>
+            <button class="btn btn-primary" id="btn-update-all" style="display: none;">
+              Update All
+            </button>
+          </div>
+        </div>
+
+        <div id="updates-container">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Checking GitHub and marketplace repositories for updates...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Skill Health & Inspection (NVIDIA Standard) -->
+      <section id="tab-skills-check" class="tab-pane">
+        <div class="section-banner" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.05));">
+          <div>
+            <h2>🛡️ Skill Health, Collision & Security Inspector</h2>
+            <p>Automatic validation of SKILL.md structure, YAML frontmatter, progressive disclosure compliance, and SkillSpector security checks. Resolve collisions by choosing whether to keep the standalone skill or the plugin version.</p>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-secondary" id="btn-run-skills-check">
+              🔍 Re-Scan Skills
+            </button>
+            <button class="btn btn-primary" id="btn-quick-nvidia">
+              ⚡ Add NVIDIA Agent Skills Pack
+            </button>
+          </div>
+        </div>
+
+        <div id="skills-check-container">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Evaluating skill health and collisions...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Marketplaces Sources -->
+      <section id="tab-marketplaces" class="tab-pane">
+        <div class="card form-card" style="margin-bottom: 28px; max-width: 100%;">
+          <div class="pane-header" style="margin-bottom: 12px;">
+            <div>
+              <h3>➕ Add Custom Marketplace from GitHub</h3>
+              <p>Enter any Git URL containing a Claude marketplace or skills repository (e.g. NVIDIA, Karpathy, Superpowers, or your custom repo).</p>
+            </div>
+          </div>
+
+          <div class="input-action-row">
+            <input type="text" id="custom-market-url" placeholder="https://github.com/NVIDIA/skills.git">
+            <button class="btn btn-primary" id="btn-download-market">
+              ⬇️ Download & Browse Items
+            </button>
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+            Quick links: <a href="#" id="quick-link-nvidia" style="color: var(--accent); text-decoration: none;">NVIDIA/skills</a> • <a href="#" id="quick-link-karpathy" style="color: var(--accent); text-decoration: none;">forrestchang/andrej-karpathy-skills</a>
+          </div>
+        </div>
+
+        <!-- Discovered Market Items Selection Panel -->
+        <div id="market-selection-panel" class="card" style="display: none; margin-bottom: 28px; border-color: var(--accent);">
+          <div class="pane-header">
+            <div>
+              <h3 id="market-selection-title">📦 Marketplace Offer: Choose what to install</h3>
+              <p>Select items you wish to automatically convert and register for Antigravity.</p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-secondary" id="btn-select-all-market">Select All</button>
+              <button class="btn btn-primary" id="btn-install-selected-market">⚡ Install Selected</button>
+            </div>
+          </div>
+          <div id="market-items-list" class="cards-grid" style="margin-top: 16px;"></div>
+        </div>
+
+        <div class="pane-header">
+          <div>
+            <h2>Connected & Cloned Marketplaces</h2>
+            <p>Downloaded and active marketplace repositories on your machine.</p>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="marketplaces-container">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+
+      <!-- Tab: Convert & Direct Import -->
+      <section id="tab-convert" class="tab-pane">
+        <div class="pane-header">
+          <div>
+            <h2>Claude $\rightarrow$ Antigravity Auto-Converter</h2>
+            <p>Convert and import any Claude plugin Git repo or local directory. The bridge builds <code>plugin.json</code>, harmonizes <code>skills/</code>, rules <code>AGENTS.md</code>, and configures MCP servers.</p>
+          </div>
+        </div>
+
+        <div class="card form-card">
+          <div class="form-group">
+            <label>Git Repository or Local Folder Path</label>
+            <input type="text" id="import-url" placeholder="https://github.com/author/claude-plugin.git">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Plugin Identifier in Antigravity</label>
+              <input type="text" id="import-name" placeholder="e.g. my-plugin">
+            </div>
+            <div class="form-group">
+              <label>Installation Scope</label>
+              <select id="import-scope">
+                <option value="global">Global (~/.gemini/config/plugins)</option>
+                <option value="workspace">Current Workspace (.agents/plugins)</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-large" id="btn-run-convert">
+            ⚡ Convert & Install into Antigravity
+          </button>
+
+          <div id="import-result" class="result-box" style="display: none;"></div>
+        </div>
+      </section>
+
+      <!-- Tab: Antigravity Rules & Directives -->
+      <section id="tab-rules" class="tab-pane">
+        <div class="section-banner" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.08));">
+          <div>
+            <h2>📜 Antigravity Rules & System Directives</h2>
+            <p>Active behavioral instructions, engineering guardrails, and markdown directives (GEMINI.md, AGENTS.md, plugin rules) governing agent reasoning.</p>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-secondary" id="btn-refresh-rules">
+              🔄 Refresh Rules
+            </button>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="rules-grid">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Scanning active directives and rule files...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Agents & Personas -->
+      <section id="tab-agents" class="tab-pane">
+        <div class="section-banner" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.08));">
+          <div>
+            <h2>🤖 Antigravity Agents & Personas</h2>
+            <p>Specialized subagents (self, research, image-generator) and discovered personas from plugins and Claude marketplaces for multi-agent workflows.</p>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-secondary" id="btn-refresh-agents">
+              🔄 Refresh Agents
+            </button>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="agents-grid">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading agent configurations and definitions...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Model Context Protocol (MCP) -->
+      <section id="tab-mcp" class="tab-pane">
+        <div class="section-banner" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.08));">
+          <div>
+            <h2>⚡ Model Context Protocol (MCP) Servers</h2>
+            <p>External tool providers and memory servers connected to Antigravity (claude-mem, stdio tools, JSON schemas).</p>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-secondary" id="btn-refresh-mcp">
+              🔄 Refresh MCP
+            </button>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="mcp-grid">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Discovering MCP servers and tool definitions...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal: SKILL.md Reader / Viewer -->
+  <div id="skill-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-skill-title">Skill Details</h2>
+          <span id="modal-skill-path" style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); word-break: break-all;"></span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" id="btn-copy-skill-content">📋 Copy</button>
+          <button class="btn btn-secondary" id="btn-close-skill-modal">✕ Close</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <pre id="modal-skill-code" style="white-space: pre-wrap; font-family: var(--font-mono); font-size: 13px; color: #e2e8f0; line-height: 1.6;"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create New Skill -->
+  <div id="create-skill-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h2>➕ Create New Antigravity Skill</h2>
+        <button class="btn btn-secondary" id="btn-close-create-modal">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="form-group">
+          <label>Skill Name (Identifier)</label>
+          <input type="text" id="new-skill-name" placeholder="e.g. database-reviewer">
+        </div>
+        <div class="form-group">
+          <label>Short Description (for agent progressive disclosure)</label>
+          <input type="text" id="new-skill-desc" placeholder="e.g. Reviews database schema and optimizes indexes prior to deployment...">
+        </div>
+        <div class="form-group">
+          <label>Instructions & Procedures (Markdown)</label>
+          <textarea id="new-skill-instructions" rows="10" style="padding: 12px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-main); font-family: var(--font-mono); font-size: 13px; line-height: 1.5; resize: vertical;" placeholder="# Procedures&#10;1. Inspect database schema migrations&#10;2. Verify foreign key index constraints..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-large" id="btn-save-new-skill">
+          💾 Save & Activate in Antigravity
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: About Claugravity -->
+  <div id="about-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <h2>🌌 Claugravity</h2>
+          <span class="card-tag" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); font-size: 11px;">v0.1 (Beta)</span>
+        </div>
+        <button class="btn btn-secondary" id="btn-close-about-modal">✕</button>
+      </div>
+      <div class="modal-body" style="font-size: 13.5px; line-height: 1.6; color: var(--text-muted); display: flex; flex-direction: column; gap: 14px;">
+        <p>
+          <strong>Claugravity</strong> is a free, open-source local bridge that lets <strong>Google Antigravity</strong> install, run, and update plugins, skills, guidelines, and MCP servers created for the <strong>Claude</strong> ecosystem.
+        </p>
+
+        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-md); padding: 12px; color: #fbbf24;">
+          <strong>⚠️ Important Notice:</strong>
+          <p style="margin-top: 4px; font-size: 12.5px; color: #fde68a;">
+            Antigravity indexes skills, rules, and plugins during its startup. <strong>Whenever you install, update, or remove a skill or plugin in Claugravity, restart your Antigravity app or IDE</strong> so it re-reads your configuration.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; font-size: 12.5px; display: flex; flex-direction: column; gap: 6px;">
+          <div><strong>Author:</strong> <a href="https://yamiru.com" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; font-weight: 600; text-decoration: none;">Yamiru.com</a></div>
+          <div><strong>License:</strong> MIT (100% Free & Open Source)</div>
+          <div><strong>Version:</strong> <code id="modal-version-val">0.1 (Beta)</code> (tracked via <code>.version</code>)</div>
+          <div><strong>Architecture:</strong> Node.js (Pure ESM), local-only, zero telemetry</div>
+          <div><strong>Cross-Platform:</strong> Windows, macOS, Linux</div>
+          <div><strong>GitHub Repository:</strong> <a href="https://github.com/Yamiru/Claugravity" target="_blank" style="color: #60a5fa;">github.com/Yamiru/Claugravity</a></div>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 12px 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 12px; color: var(--text-dim);">by <a href="https://yamiru.com" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: none; font-weight: 600;">Yamiru.com</a></span>
+        <button class="btn btn-secondary" id="btn-close-about-modal-foot">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

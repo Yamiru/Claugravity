@@ -1,0 +1,32 @@
+{
+  "name": "claugravity",
+  "version": "0.1.0-beta",
+  "description": "Local bridge that connects Claude skills, plugins, and MCP servers directly to Google Antigravity",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yamiru/Claugravity.git"
+  },
+  "homepage": "https://github.com/Yamiru/Claugravity",
+  "main": "src/index.js",
+  "bin": {
+    "claugravity": "./bin/claugravity.js",
+    "agymp": "./bin/agymp.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "cli": "node src/cli.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "antigravity",
+    "claude",
+    "plugins",
+    "skills",
+    "mcp",
+    "marketplace",
+    "converter"
+  ],
+  "author": "Yamiru",
+  "license": "MIT"
+}
